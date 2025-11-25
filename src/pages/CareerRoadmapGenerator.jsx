@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-// import { Card, CardContent } from "@/components/ui/card";
 import { Card, CardContent } from "../components/ui/card.jsx";
-// import { Button } from "@/components/ui/button";
 import { Button } from "../components/ui/button.jsx";
 import { ChevronDown } from "lucide-react";
 
@@ -48,6 +46,44 @@ const ROADMAPS = {
       { title: "Neural Networks", resources: ["https://www.deeplearning.ai/"] },
       { title: "Advanced Models", resources: ["https://huggingface.co/"] },
       { title: "Projects", resources: ["Train DL models"] }
+    ]
+  },
+
+  "DevOps": {
+    steps: [
+      { title: "Linux Basics", resources: ["https://linuxjourney.com/"] },
+      { title: "Shell Scripting", resources: ["https://www.shellscript.sh/"] },
+      { title: "Version Control (Git)", resources: ["https://git-scm.com/book/en/v2"] },
+      { title: "CI/CD Concepts & Tools (Jenkins, GitHub Actions)", resources: ["https://www.jenkins.io/doc/tutorials/"] },
+      { title: "Containerization (Docker)", resources: ["https://docs.docker.com/get-started/"] },
+      { title: "Orchestration (Kubernetes)", resources: ["https://kubernetes.io/docs/tutorials/"] },
+      { title: "Cloud Platforms (AWS/GCP/Azure)", resources: ["https://aws.amazon.com/training/"] },
+      { title: "Monitoring & Logging (Prometheus, Grafana)", resources: ["https://prometheus.io/docs/introduction/overview/"] },
+      { title: "Projects", resources: ["Set up a full CI/CD pipeline with Docker and Kubernetes"] }
+    ]
+  },
+
+  "Cybersecurity": {
+    steps: [
+      { title: "Networking Basics", resources: ["https://www.cisco.com/c/en/us/solutions/enterprise-networks/what-is-computer-networking.html"] },
+      { title: "Linux and Windows Security", resources: ["https://linuxsecurity.expert/"] },
+      { title: "Cryptography Fundamentals", resources: ["https://cryptobook.us/"] },
+      { title: "Web Security Basics (OWASP)", resources: ["https://owasp.org/www-project-top-ten/"] },
+      { title: "Penetration Testing Tools (Kali Linux)", resources: ["https://www.kali.org/docs/introduction/"] },
+      { title: "Security Certifications (CEH, CompTIA Security+)", resources: ["https://www.eccouncil.org/programs/certified-ethical-hacker-ceh/"] },
+      { title: "Projects", resources: ["Perform basic penetration tests on a demo environment"] }
+    ]
+  },
+
+  "Cloud Computing": {
+    steps: [
+      { title: "Cloud Fundamentals", resources: ["https://azure.microsoft.com/en-us/overview/what-is-cloud-computing/"] },
+      { title: "AWS Core Services", resources: ["https://aws.amazon.com/getting-started/"] },
+      { title: "Azure Fundamentals", resources: ["https://learn.microsoft.com/en-us/training/paths/azure-fundamentals/"] },
+      { title: "Google Cloud Platform Basics", resources: ["https://cloud.google.com/training"] },
+      { title: "Infrastructure as Code (Terraform)", resources: ["https://learn.hashicorp.com/terraform"] },
+      { title: "Serverless Computing", resources: ["https://serverless.com/framework/docs/"] },
+      { title: "Projects", resources: ["Deploy a multi-tier application on AWS or Azure"] }
     ]
   }
 };
@@ -107,6 +143,7 @@ export default function CareerRoadmapGenerator() {
                         key={idx}
                         href={res}
                         target="_blank"
+                        rel="noopener noreferrer"
                         className="block text-blue-600 underline text-sm"
                       >
                         {res}

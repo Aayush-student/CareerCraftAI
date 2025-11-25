@@ -1,12 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-/**
- * LinkedInPostGenerator.jsx
- * - Copy into src/pages/LinkedInPostGenerator.jsx
- * - Requires Tailwind CSS
- */
 
-/* ---------- Helpers ---------- */
 
 const TONES = {
   professional: "Professional",
@@ -46,7 +40,7 @@ function sampleSynonymPool() {
   };
 }
 
-/* Generate variations using templates and small synonym swaps */
+
 function generateVariations({
   type,
   title,
@@ -79,7 +73,7 @@ function generateVariations({
 
   const variations = [];
 
-  // variation templates
+ 
   const templates = [];
 
   if (type === "achievement") {
@@ -123,7 +117,7 @@ function generateVariations({
       `${emoji}New role: ${role || "role"} at ${company || "company"}! Ready to build, learn, and grow. ${cta ? cta : ""}${hashtagsText}`,
     );
   } else {
-    // fallback general
+   
     templates.push(
       `${emoji}${safeTitle}. ${safeLearn ? "Takeaway: " + safeLearn + "." : ""}${hashtagsText}`,
     );
@@ -135,24 +129,22 @@ function generateVariations({
     );
   }
 
-  // Tone adjustments (small)
   function applyTone(text, toneKey) {
     if (toneKey === "casual") {
       return text.replace(/^/, "").replace(/\bI am\b|\bI'm\b/g, "I'm");
     } else if (toneKey === "enthusiastic") {
-      // add exclamation if not present
+     
       return text.endsWith("!") ? text : text + " 🚀";
     }
-    // professional - keep as is
+   
     return text;
   }
 
-  // produce 3 tidy variations
   for (let i = 0; i < 3; i++) {
     let t = templates[i % templates.length] || templates[0];
     t = t.replace(/\s+/g, " ").trim();
     t = applyTone(t, tone);
-    // optionally prefix name
+   
     if (name) t = `${name} — ${t}`;
     variations.push(t);
   }
@@ -160,10 +152,9 @@ function generateVariations({
   return variations;
 }
 
-/* ---------- Component ---------- */
+
 
 export default function LinkedinPostGenerator() {
-  // form state
   const [postType, setPostType] = useState("achievement");
   const [title, setTitle] = useState("");
   const [learnings, setLearnings] = useState("");
@@ -175,7 +166,7 @@ export default function LinkedinPostGenerator() {
   const [company, setCompany] = useState("");
   const [role, setRole] = useState("");
 
-  // results
+
   const [variations, setVariations] = useState([]);
   const [activeIndex, setActiveIndex] = useState(null);
   const [savedDrafts, setSavedDrafts] = useState(
@@ -183,7 +174,7 @@ export default function LinkedinPostGenerator() {
   );
 
   useEffect(() => {
-    // refresh drafts from localStorage on mount
+  
     setSavedDrafts(JSON.parse(localStorage.getItem("li_drafts") || "[]"));
   }, []);
 
@@ -220,7 +211,7 @@ export default function LinkedinPostGenerator() {
       await navigator.clipboard.writeText(text);
       alert("Copied to clipboard!");
     } catch (err) {
-      // fallback
+    
       const ta = document.createElement("textarea");
       ta.value = text;
       document.body.appendChild(ta);
@@ -274,7 +265,7 @@ export default function LinkedinPostGenerator() {
     setName(draft.name || "");
     setCompany(draft.company || "");
     setRole(draft.role || "");
-    // regenerate
+    
     setTimeout(handleGenerate, 200);
   }
 
@@ -284,7 +275,7 @@ export default function LinkedinPostGenerator() {
     localStorage.setItem("li_drafts", JSON.stringify(updated));
   }
 
-  // small utility to produce a short summary for preview card
+
   function shortSummary(text, n = 180) {
     if (!text) return "";
     return text.length > n ? text.slice(0, n).trim() + "…" : text;
@@ -300,7 +291,7 @@ export default function LinkedinPostGenerator() {
         </p>
 
         <div className="grid lg:grid-cols-2 gap-6">
-          {/* LEFT: Form */}
+          
           <form
             onSubmit={handleGenerate}
             className="bg-white p-6 rounded-xl shadow space-y-4"
@@ -308,7 +299,7 @@ export default function LinkedinPostGenerator() {
             <div className="grid grid-cols-2 gap-3">
               <label className="block">
                 <span className="text-sm font-medium text-gray-700">
-                  Your name (optional)
+                  Your name 
                 </span>
                 <input
                   className="mt-1 block w-full border rounded p-2"
@@ -333,7 +324,7 @@ export default function LinkedinPostGenerator() {
             <div className="grid grid-cols-2 gap-3">
               <label className="block">
                 <span className="text-sm font-medium text-gray-700">
-                  Role (optional)
+                  Role 
                 </span>
                 <input
                   className="mt-1 block w-full border rounded p-2"
@@ -480,7 +471,6 @@ export default function LinkedinPostGenerator() {
               </button>
             </div>
 
-            {/* Drafts preview (small) */}
             {savedDrafts.length > 0 && (
               <div className="mt-4 border-t pt-3">
                 <p className="text-sm font-medium mb-2">Saved drafts</p>
@@ -517,7 +507,7 @@ export default function LinkedinPostGenerator() {
             )}
           </form>
 
-          {/* RIGHT: Results / Preview */}
+        
           <div className="space-y-4">
             <div className="bg-white p-4 rounded-xl shadow">
               <div className="flex justify-between items-start">
@@ -540,7 +530,7 @@ export default function LinkedinPostGenerator() {
               </div>
             </div>
 
-            {/* Variations list */}
+           
             <div className="space-y-3">
               {variations.length === 0 ? (
                 <div className="bg-white p-6 rounded-xl shadow text-center text-gray-500">
@@ -588,7 +578,7 @@ export default function LinkedinPostGenerator() {
 
                           <button
                             onClick={() => {
-                              // open share window to LinkedIn composer with text (note: LinkedIn limits length)
+                              
                               const encoded = encodeURIComponent(v);
                               const shareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=&mini=true&title=${encoded}`;
                               window.open(shareUrl, "_blank");
@@ -600,7 +590,7 @@ export default function LinkedinPostGenerator() {
 
                           <button
                             onClick={() => {
-                              // small quick-edit: insert into input fields
+                          
                               setTitle(title + " | " + shortSummary(v, 80));
                             }}
                             className="px-3 py-2 bg-gray-100 rounded text-sm border"
@@ -628,7 +618,7 @@ export default function LinkedinPostGenerator() {
               )}
             </div>
 
-            {/* Bulk actions */}
+            
             {variations.length > 0 && (
               <div className="bg-white p-4 rounded-xl shadow flex gap-3">
                 <button
@@ -654,7 +644,7 @@ export default function LinkedinPostGenerator() {
 
                 <button
                   onClick={() => {
-                    // regenerate with slightly different seeds by toggling emojis
+                    
                     setIncludeEmojis(!includeEmojis);
                     setTimeout(handleGenerate, 120);
                   }}

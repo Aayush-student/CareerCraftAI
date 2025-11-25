@@ -6,7 +6,6 @@ import pdfjsWorker from "pdfjs-dist/build/pdf.worker.mjs?url";
 pdfjsLib.GlobalWorkerOptions.workerSrc = pdfjsWorker;
 
 
-// 🔹 Master Skills per Role
 const ROLE_BASED_SKILLS = {
   "frontend developer": [
     "javascript",
@@ -65,7 +64,7 @@ export default function ATSChecker() {
   const [score, setScore] = useState(0);
   const [suggestions, setSuggestions] = useState([]);
 
-  // 🔹 Extract text from PDF
+  
   const extractPDF = async (file) => {
     if (!file) return;
 
@@ -88,7 +87,7 @@ export default function ATSChecker() {
     }
   };
 
-  // 🔹 Analyze Resume
+
   const analyze = () => {
     if (!role) {
       alert("Please select a role.");
@@ -114,7 +113,7 @@ export default function ATSChecker() {
     );
     setScore(calculatedScore);
 
-    // Suggestions
+ 
     const sug = [];
     if (calculatedScore < 50) sug.push("Add more technical keywords related to the role.");
     if (text.length < 200) sug.push("Your resume looks short. Add more detailed experience.");
@@ -135,7 +134,7 @@ export default function ATSChecker() {
         <div className="bg-white shadow p-6 rounded-xl">
           <h2 className="text-xl font-semibold mb-4">Upload or Paste Resume</h2>
 
-          {/* Mode Toggle */}
+         
           <div className="flex gap-3 mb-4">
             <button
               className={`px-4 py-2 rounded-lg border ${
@@ -160,7 +159,7 @@ export default function ATSChecker() {
             </button>
           </div>
 
-          {/* PDF Upload Section */}
+         
           {mode === "pdf" && (
             <div className="mb-4">
               <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -214,7 +213,6 @@ export default function ATSChecker() {
             </div>
           )}
 
-          {/* TEXT AREA MODE */}
           {mode === "text" && (
             <div className="mt-4">
               <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -233,7 +231,7 @@ export default function ATSChecker() {
             </div>
           )}
 
-          {/* Role Selection */}
+        
           <select
             className="w-full border rounded p-2 mt-4"
             onChange={(e) => setRole(e.target.value)}
@@ -254,7 +252,7 @@ export default function ATSChecker() {
           </button>
         </div>
 
-        {/* RIGHT PANEL */}
+        
         <div className="bg-white shadow p-6 rounded-xl">
           <h2 className="text-xl font-semibold mb-4">ATS Analysis Report</h2>
 
@@ -263,7 +261,7 @@ export default function ATSChecker() {
             <span className="text-blue-600"> {score}/100</span>
           </p>
 
-          {/* Matched Skills */}
+         
           <div className="mt-4">
             <h3 className="font-semibold mb-1">Matched Skills</h3>
             <div className="flex flex-wrap gap-2">
@@ -278,7 +276,7 @@ export default function ATSChecker() {
             </div>
           </div>
 
-          {/* Missing Skills */}
+       
           <div className="mt-4">
             <h3 className="font-semibold mb-1">Missing Skills</h3>
             <div className="flex flex-wrap gap-2">
@@ -293,7 +291,7 @@ export default function ATSChecker() {
             </div>
           </div>
 
-          {/* Suggestions */}
+          
           <div className="mt-4">
             <h3 className="font-semibold mb-1">Suggestions</h3>
             <ul className="list-disc ml-5">
